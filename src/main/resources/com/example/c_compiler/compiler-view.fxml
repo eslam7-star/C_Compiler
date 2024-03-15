@@ -29,7 +29,7 @@
     </top>
 
     <center>
-        <TextArea fx:id="inputTextArea" prefHeight="400" prefWidth="600" />
+        <TextArea fx:id="input_area" prefHeight="400" prefWidth="600" />
     </center>
 
     <bottom>

@@ -7,44 +7,52 @@ public class Lexer {
     private int currentPosition;
     private static final String[] KEYWORDS = {"auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile","while"};
 
-
-
+    List<Token> tokens;
 
     public Lexer(String input) {
         this.input=input;
         this.currentPosition = 0;
+        tokens = new ArrayList<>();
     }
 
 
-    public List<Token> tokenize() {
+    // int *a =(b+c);
+
+    public void tokenize() {
         StringBuilder buffer = new StringBuilder();
-        List<Token> tokens = new ArrayList<>();
+        String op;
         while (currentPosition < input.length()) {
             if( Character.toString(input.charAt(currentPosition)).matches("[+\\-*/%&|<>!=^~?:(),.;\\[\\]{}\\\\#\\s]") ){
                 String sbuffer = buffer.toString();
-                if ( sbuffer != "" ){
-                    if ( is_keyword(sbuffer)){
-                        tokens.add(new Token(TokenType.KEYWORD,sbuffer));
-                    } else if ( sbuffer.matches("[a-zA-Z_$][a-zA-Z0-9_$]*\n") ) {
-                        tokens.add(new Token(TokenType.IDENTIFIER,sbuffer));
-                    }else if ( sbuffer.matches("\\\".*?\\\"") || sbuffer.matches("'(\\\\.|[^'\\\\])*'|0[xX][0-9a-fA-F]+|0[0-7]*|0[bB][01]+|[1-9][0-9]*|0\n") || sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\n") ){
-                        tokens.add(new Token(TokenType.LITERAL,sbuffer));
-                    }
-                    else if (sbuffer .matches ("[-+*/%&|^!<>=?:,.;[\\\\]{}\\\\\\\\#]|(\\\\+=|-=|\\\\*=|/=|%=&=|^=&=|<<=|>>=|<<|>>|&&|\\\\|\\\\||==|!=|<=|>=|\\\\+\\\\+|--|\\\\(|\\\\)|\\\\[|\\\\])\r\n" + //
-                                                "")){
-                        tokens.add (new Token(TokenType.OPERATOR,sbuffer));
+                if ( sbuffer != "" ) {
+                    if (is_keyword(sbuffer)) {
+                        tokens.add(new Token(TokenType.KEYWORD, sbuffer));
+                    } else if (sbuffer.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
+                        tokens.add(new Token(TokenType.IDENTIFIER, sbuffer));
+                    } else if (sbuffer.matches("\\\".*?\\\"") || sbuffer.matches("'(\\\\.|[^'\\\\])*'|0[xX][0-9a-fA-F]+|0[0-7]*|0[bB][01]+|[1-9][0-9]*|0") || sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?")) {
+                        tokens.add(new Token(TokenType.LITERAL, sbuffer));
                     }
                 }
+                op = Character.toString(input.charAt(currentPosition));
+                if ( op.matches ("[-+*/%&|<>^!~=]")){
+                    currentPosition++;
+                    if ( Character.toString(input.charAt(currentPosition)).matches ("[-+*/%&|<>^!~=]")) {
+                            op += Character.toString(input.charAt(currentPosition));
+                    }else{
+                        currentPosition--;
+                    }
+                    tokens.add(new Token(TokenType.OPERATOR,op));
+                }else if ( !op.equals("\s") ){
+                    tokens.add(new Token(TokenType.SYMBOL,op));
+                }
 
-
+                op = "";
                 buffer.delete(0, buffer.length());
             }else{
                 buffer.append(input.charAt(currentPosition));
-                currentPosition++;
             }
-
+            currentPosition++;
         }
-        return tokens;
     }
 
     public boolean is_keyword(String str){
