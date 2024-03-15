@@ -16,8 +16,6 @@ public class Lexer {
     }
 
 
-    // int *a =(b+c);
-
     public void tokenize() {
         StringBuilder buffer = new StringBuilder();
         String op;
@@ -27,6 +25,8 @@ public class Lexer {
                 if(buffer.length() > 0) {
                     addToken(buffer);
                 }
+                if( input.charAt(currentPosition) == '/' )
+                    remove_comments();
                 op = Character.toString(currentChar);
                 if(op.matches("[-+*/%&|<>^!~=]")) {
                     currentPosition++;
@@ -35,16 +35,18 @@ public class Lexer {
                     } else {
                         currentPosition--;
                     }
-                    tokens.add(new Token(TokenType.OPERATOR, op));
-                } else if(!op.equals("\\s")) {
-                    tokens.add(new Token(TokenType.SYMBOL, op));
+                    tokens.add(new Token(TokenType.OPERATOR,op));
+                }else if ( !op.equals("\s") && !op.equals("\n") ){
+                    tokens.add(new Token(TokenType.SYMBOL,op));
                 }
-            } else {
-                buffer.append(currentChar);
+
+                op = "";
+                buffer.delete(0, buffer.length());
+            }else{
+                buffer.append(input.charAt(currentPosition));
             }
             currentPosition++;
         }
-        // Check for any remaining buffer content after the loop
         if(buffer.length() > 0) {
             addToken(buffer);
         }
@@ -61,7 +63,7 @@ public class Lexer {
         }
         buffer.delete(0, buffer.length());
     }
-        
+
 
     public boolean is_keyword(String str){
         for(String s: KEYWORDS ){
@@ -73,35 +75,19 @@ public class Lexer {
      }
     
 
-/*
-    private Token operatorToken() {
-        char currentChar = input.charAt(currentPosition);
-        currentPosition++; // Always advance currentPosition
-        TokenType tokenType = TokenType.fromChar(currentChar);
-        if (tokenType == TokenType.ADDITION || tokenType == TokenType.SUBTRACT) {
-            char nextChar = currentPosition < input.length() ? input.charAt(currentPosition) : '\0';
-            if (nextChar == currentChar) {
-                currentPosition++; // Consume the second character of the operator
-                if (currentChar == '+') {
-                    return new Token(TokenType.INCREMENT, "++");
-                } else {
-                    return new Token(TokenType.DECREMENT, "--");
-                }
+     public void remove_comments(){
+        if( input.charAt(currentPosition + 1 ) == '/'  ){
+            while (input.charAt(currentPosition) != '\n' ){
+                currentPosition++;
             }
-        } else if (tokenType == TokenType.LESSTHAN || tokenType == TokenType.GREATERTHAN) {
-            char nextChar = currentPosition < input.length() ? input.charAt(currentPosition) : '\0';
-            if (nextChar == '=') {
-                currentPosition++; // Consume the '=' character
-                if (tokenType == TokenType.LESSTHAN) {
-                    return new Token(TokenType.LESSTHAN_EQUAL, "<=");
-                } else {
-                    return new Token(TokenType.GREATERTHAN_EQUAL, ">=");
-                }
+        }else if( input.charAt(currentPosition + 1 ) == '*' ){
+            while ( ! ( input.charAt(currentPosition) != '*' && input.charAt(currentPosition+1) != '/') ){
+                currentPosition++;
             }
-        }
-        return new Token(tokenType, String.valueOf(currentChar));
-    }
-*/
+         }
+     }
+
+
 
 
 }

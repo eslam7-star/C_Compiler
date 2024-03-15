@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0x4">
+    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0x6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
     </list>
@@ -80,7 +80,8 @@
       <workItem from="1710169096950" duration="8522000" />
       <workItem from="1710212919619" duration="367000" />
       <workItem from="1710328180970" duration="14796000" />
-      <workItem from="1710508202211" duration="7569000" />
+      <workItem from="1710508202211" duration="12510000" />
+      <workItem from="1710542882360" duration="1068000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>
@@ -96,11 +97,29 @@
       <option name="project" value="LOCAL" />
       <updated>1710349812115</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="0x4">
+      <created>1710515842347</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710515842347</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -129,17 +148,7 @@
     <MESSAGE value="0x1" />
     <MESSAGE value="0x2" />
     <MESSAGE value="0x4" />
-    <option name="LAST_COMMIT_MESSAGE" value="0x4" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="0x6" />
+    <option name="LAST_COMMIT_MESSAGE" value="0x6" />
   </component>
 </project>
