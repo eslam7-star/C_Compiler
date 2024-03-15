@@ -49,6 +49,7 @@ public class Lexer {
             addToken(buffer);
         }
     }
+
     public void addToken(StringBuilder buffer) {
         String sbuffer = buffer.toString();
         if(is_keyword(sbuffer)) {
