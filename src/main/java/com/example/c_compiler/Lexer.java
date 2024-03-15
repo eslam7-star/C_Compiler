@@ -30,6 +30,10 @@ public class Lexer {
                     }else if ( sbuffer.matches("\\\".*?\\\"") || sbuffer.matches("'(\\\\.|[^'\\\\])*'|0[xX][0-9a-fA-F]+|0[0-7]*|0[bB][01]+|[1-9][0-9]*|0\n") || sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?\n") ){
                         tokens.add(new Token(TokenType.LITERAL,sbuffer));
                     }
+                    else if (sbuffer .matches ("[-+*/%&|^!<>=?:,.;[\\\\]{}\\\\\\\\#]|(\\\\+=|-=|\\\\*=|/=|%=&=|^=&=|<<=|>>=|<<|>>|&&|\\\\|\\\\||==|!=|<=|>=|\\\\+\\\\+|--|\\\\(|\\\\)|\\\\[|\\\\])\r\n" + //
+                                                "")){
+                        tokens.add (new Token(TokenType.OPERATOR,sbuffer));
+                    }
                 }
 
 
@@ -51,6 +55,7 @@ public class Lexer {
         }
         return false;
      }
+    
 
 /*
     private Token operatorToken() {
