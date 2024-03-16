@@ -1,9 +1,11 @@
 package com.example.c_compiler;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Lexer {
-    private final String input;
+    private String input;
     private int currentPosition;
     private static final String[] KEYWORDS = {"auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile","while"};
 
@@ -13,20 +15,20 @@ public class Lexer {
         this.input=input;
         this.currentPosition = 0;
         tokens = new ArrayList<>();
+
     }
 
 
     public void tokenize() {
         StringBuilder buffer = new StringBuilder();
         String op;
+        input = removeComments();
         while (currentPosition < input.length()) {
             char currentChar = input.charAt(currentPosition);
-            if(Character.toString(currentChar).matches("[+\\-*/%&|<>!=^~?:(),.;\\[\\]{}\\\\#\\s]")) {
+            if(Character.toString(currentChar).matches("[+\\-*/%&|<>!=^~?:(),;\\[\\]{}#\\s]") ) {
                 if(buffer.length() > 0) {
                     addToken(buffer);
                 }
-                if( input.charAt(currentPosition) == '/' )
-                    remove_comments();
                 op = Character.toString(currentChar);
                 if(op.matches("[-+*/%&|<>^!~=]")) {
                     currentPosition++;
@@ -39,11 +41,20 @@ public class Lexer {
                 }else if ( !op.equals("\s") && !op.equals("\n") ){
                     tokens.add(new Token(TokenType.SYMBOL,op));
                 }
-
                 op = "";
                 buffer.delete(0, buffer.length());
             }else{
-                buffer.append(input.charAt(currentPosition));
+                StringBuilder b = new StringBuilder();
+                if ( input.charAt(currentPosition) == '"' ){
+                    currentPosition++;
+                    while ( input.charAt(currentPosition) != '"' ){
+                        b.append(input.charAt(currentPosition));
+                        currentPosition++;
+                    }
+                    tokens.add(new Token(TokenType.LITERAL,b.toString()));
+                }else {
+                    buffer.append(input.charAt(currentPosition));
+                }
             }
             currentPosition++;
         }
@@ -75,19 +86,10 @@ public class Lexer {
      }
     
 
-     public void remove_comments(){
-        if( input.charAt(currentPosition + 1 ) == '/'  ){
-            while (input.charAt(currentPosition) != '\n' ){
-                currentPosition++;
-            }
-        }else if( input.charAt(currentPosition + 1 ) == '*' ){
-            while ( ! ( input.charAt(currentPosition) != '*' && input.charAt(currentPosition+1) != '/') ){
-                currentPosition++;
-            }
-         }
-     }
-
-
+    public String removeComments() {
+        String pattern = "(//[^\\n]*)|(/\\*[^/]*\\*/)";
+        return input.replaceAll(pattern,"");
+    }
 
 
 }
