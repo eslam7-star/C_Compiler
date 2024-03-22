@@ -70,21 +70,33 @@ public class Lexer {
             tokens.add(new Token(TokenType.IDENTIFIER, sbuffer));
         } else if(sbuffer.matches("\\\".*?\\\"")) {
             tokens.add(new Token(TokenType.STRING, sbuffer));
-        }else if( sbuffer.matches("[1-9][0-9]*")){
-            tokens.add(new Token(TokenType.DECIMAL,sbuffer));
-        }else if( sbuffer.matches("0[bB][01]+")){
-            tokens.add(new Token(TokenType.BINARY,sbuffer));
-        }else if( sbuffer.matches("0[xX][0-9a-fA-F]+")){
-            tokens.add(new Token(TokenType.HEX,sbuffer));
-        }else if( sbuffer.matches("0[0-7]*")){
-            tokens.add(new Token(TokenType.OCTAL,sbuffer));
         }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
             tokens.add(new Token(TokenType.Character,sbuffer));
-        }else if( sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") ){
-            tokens.add(new Token(TokenType.FLOAT,sbuffer));
+        }else if( sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") || sbuffer.matches("[-+]?[1-9][0-9]*") || sbuffer.matches("[-+]?0[bB][01]+") || sbuffer.matches("[-+]?0[xX][0-9a-fA-F]+") || sbuffer.matches("[-+]?0[0-7]*")){
+            if( tokens.size() > 0 ) {
+                Token t1 = tokens.get(tokens.size() - 1);
+                Token t2 = tokens.get(tokens.size() - 2);
+                if ( (t1.getType() == TokenType.SUB || ( t1.getType() == TokenType.UnknownOP && t1.getValue().contains("-")) ) && !(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC || t2.getType() == TokenType.DEC)) {
+                    sbuffer = "-" + sbuffer;
+                    tokens.remove(tokens.size() - 1);
+                }
+            }
+            if( sbuffer.matches("[-+]?[1-9][0-9]*")){
+                tokens.add(new Token(TokenType.DECIMAL,sbuffer));
+            }else if( sbuffer.matches("[-+]?0[bB][01]+")){
+                tokens.add(new Token(TokenType.BINARY,sbuffer));
+            }else if( sbuffer.matches("[-+]?0[xX][0-9a-fA-F]+")){
+                tokens.add(new Token(TokenType.HEX,sbuffer));
+            }else if( sbuffer.matches("[-+]?0[0-7]*")){
+                tokens.add(new Token(TokenType.OCTAL,sbuffer));
+            }else if( sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") ){
+                tokens.add(new Token(TokenType.FLOAT,sbuffer));
+            }else {
+                System.out.println("Syntax Error here :" + sbuffer);
+            }
         }else{
-            System.out.println("Syntax Error here :"+sbuffer);
-        }
+                System.out.println("Syntax Error here :" + sbuffer);
+            }
         buffer.delete(0, buffer.length());
     }
 
@@ -148,6 +160,16 @@ public class Lexer {
                 return TokenType.RIGHT_SHIFT;
             case "=":
                 return TokenType.ASSIGN;
+            case "+=":
+                return TokenType.ADD_ASSIGN;
+            case "*=":
+                return TokenType.MUL_ASSIGN;
+            case "/=":
+                return TokenType.DIV_ASSIGN;
+            case "-=":
+                return TokenType.SUB_ASSIGN;
+            case "%=":
+                return TokenType.MOD_ASSIGN;
             default:
                 return TokenType.UnknownOP;
         }
