@@ -1,8 +1,7 @@
 package com.example.c_compiler;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Lexer {
     private String input;
@@ -31,13 +30,13 @@ public class Lexer {
                 }
                 op = Character.toString(currentChar);
                 if(op.matches("[-+*/%&|<>^!~=]")) {
-                    currentPosition++;
+                    currentPosition++;      
                     if(currentPosition < input.length() && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~=]")) {
                         op += Character.toString(input.charAt(currentPosition));
                     } else {
                         currentPosition--;
                     }
-                    tokens.add(new Token(TokenType.OPERATOR,op));
+                    tokens.add(new Token( recognizeOperator(op) ,op));
                 }else if ( !op.equals("\s") && !op.equals("\n") ){
                     tokens.add(new Token(TokenType.SYMBOL,op));
                 }
@@ -51,7 +50,7 @@ public class Lexer {
                         b.append(input.charAt(currentPosition));
                         currentPosition++;
                     }
-                    tokens.add(new Token(TokenType.LITERAL,b.toString()));
+                    tokens.add(new Token(TokenType.STRING,b.toString()));
                 }else {
                     buffer.append(input.charAt(currentPosition));
                 }
@@ -69,8 +68,22 @@ public class Lexer {
             tokens.add(new Token(TokenType.KEYWORD, sbuffer));
         } else if(sbuffer.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
             tokens.add(new Token(TokenType.IDENTIFIER, sbuffer));
-        } else if(sbuffer.matches("\\\".*?\\\"") || sbuffer.matches("'(\\\\.|[^'\\\\])*'|0[xX][0-9a-fA-F]+|0[0-7]*|0[bB][01]+|[1-9][0-9]*|0") || sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?")) {
-            tokens.add(new Token(TokenType.LITERAL, sbuffer));
+        } else if(sbuffer.matches("\\\".*?\\\"")) {
+            tokens.add(new Token(TokenType.STRING, sbuffer));
+        }else if( sbuffer.matches("[1-9][0-9]*")){
+            tokens.add(new Token(TokenType.DECIMAL,sbuffer));
+        }else if( sbuffer.matches("0[bB][01]+")){
+            tokens.add(new Token(TokenType.BINARY,sbuffer));
+        }else if( sbuffer.matches("0[xX][0-9a-fA-F]+")){
+            tokens.add(new Token(TokenType.HEX,sbuffer));
+        }else if( sbuffer.matches("0[0-7]*")){
+            tokens.add(new Token(TokenType.OCTAL,sbuffer));
+        }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
+            tokens.add(new Token(TokenType.Character,sbuffer));
+        }else if( sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") ){
+            tokens.add(new Token(TokenType.FLOAT,sbuffer));
+        }else{
+            System.out.println("Syntax Error here :"+sbuffer);
         }
         buffer.delete(0, buffer.length());
     }
@@ -83,7 +96,63 @@ public class Lexer {
             }
         }
         return false;
-     }
+    }
+
+
+    public TokenType recognizeOperator(String operator) {
+        // Mapping operator symbols to their types
+        switch (operator) {
+            case "+":
+                return TokenType.ADD;
+            case "-":
+                return TokenType.SUB;
+            case "*":
+                return TokenType.MUL;
+            case "/":
+                return TokenType.DIV;
+            case "%":
+                return TokenType.MOD;
+            case "&":
+                return TokenType.BIT_AND;
+            case "|":
+                return TokenType.BIT_OR;
+            case "^":
+                return TokenType.BIT_XOR;
+            case "~":
+                return TokenType.BIT_NOT;
+            case "++":
+                return TokenType.INC;
+            case "--":
+                return TokenType.DEC;
+            case ">":
+                return TokenType.GT;
+            case "<":
+                return TokenType.LT;
+            case ">=":
+                return TokenType.GE;
+            case "<=":
+                return TokenType.LE;
+            case "==":
+                return TokenType.EQ;
+            case "!=":
+                return TokenType.NE;
+            case "&&":
+                return TokenType.AND;
+            case "||":
+                return TokenType.OR;
+            case "!":
+                return TokenType.NOT;
+            case "<<":
+                return TokenType.LEFT_SHIFT;
+            case ">>":
+                return TokenType.RIGHT_SHIFT;
+            case "=":
+                return TokenType.ASSIGN;
+            default:
+                return TokenType.UnknownOP;
+        }
+    }
+
     
 
     public String removeComments() {

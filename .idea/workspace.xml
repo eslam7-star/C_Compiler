@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0x7">
+    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0x9">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TokenType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +83,10 @@
       <workItem from="1710328180970" duration="14796000" />
       <workItem from="1710508202211" duration="12510000" />
       <workItem from="1710542882360" duration="1068000" />
+      <workItem from="1710758229702" duration="67000" />
+      <workItem from="1710758400821" duration="962000" />
+      <workItem from="1711066270058" duration="1162000" />
+      <workItem from="1711109299980" duration="5937000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>
@@ -111,7 +116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710545481679</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="0x9">
+      <created>1710552559389</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1710552559389</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,14 +169,15 @@
     <MESSAGE value="0x4" />
     <MESSAGE value="0x6" />
     <MESSAGE value="0x7" />
-    <option name="LAST_COMMIT_MESSAGE" value="0x7" />
+    <MESSAGE value="0x9" />
+    <option name="LAST_COMMIT_MESSAGE" value="0x9" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java</url>
-          <line>27</line>
+          <line>26</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
