@@ -31,9 +31,12 @@ public class Lexer {
                 op = Character.toString(currentChar);
                 if(op.matches("[-+*/%&|<>^!~=]")) {
                     currentPosition++;      
-                    if(currentPosition < input.length() && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~=]")) {
+                    if( op.equals("=") && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~]") ){
+                        tokens.add(new Token(TokenType.ASSIGN,"="));
+                        continue;
+                    }else if( currentPosition < input.length() && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~=]") ) {
                         op += Character.toString(input.charAt(currentPosition));
-                    } else {
+                    }else {
                         currentPosition--;
                     }
                     tokens.add(new Token( recognizeOperator(op) ,op));
@@ -76,8 +79,8 @@ public class Lexer {
             if( tokens.size() > 0 ) {
                 Token t1 = tokens.get(tokens.size() - 1);
                 Token t2 = tokens.get(tokens.size() - 2);
-                if ( (t1.getType() == TokenType.SUB || ( t1.getType() == TokenType.UnknownOP && t1.getValue().contains("-")) ) && !(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC || t2.getType() == TokenType.DEC)) {
-                    sbuffer = "-" + sbuffer;
+                if ( (t1.getType() == TokenType.SUB || t1.getType() == TokenType.ADD ) && !(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC || t2.getType() == TokenType.DEC)  ) {
+                    sbuffer = t1.getValue() + sbuffer;
                     tokens.remove(tokens.size() - 1);
                 }
             }
