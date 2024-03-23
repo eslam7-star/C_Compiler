@@ -1,6 +1,5 @@
 package com.example.c_compiler;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 public class Lexer {
@@ -10,11 +9,13 @@ public class Lexer {
 
     List<Token> tokens;
 
-    public Lexer(String input) {
+    protected SymbolTable symbolTable;
+
+    public Lexer(String input, SymbolTable symbolTable) {
         this.input=input;
         this.currentPosition = 0;
         tokens = new ArrayList<>();
-
+        this.symbolTable = symbolTable;
     }
 
 
@@ -42,6 +43,11 @@ public class Lexer {
                     tokens.add(new Token( recognizeOperator(op) ,op));
                 }else if ( !op.equals("\s") && !op.equals("\n") ){
                     tokens.add(new Token(TokenType.SYMBOL,op));
+                    if ( op.equals("{") ){
+                        symbolTable.startScope();
+                    } else if ( op.equals("}") ) {
+                        symbolTable.endScope();
+                    }
                 }
                 op = "";
                 buffer.delete(0, buffer.length());
@@ -70,7 +76,15 @@ public class Lexer {
         if(is_keyword(sbuffer)) {
             tokens.add(new Token(TokenType.KEYWORD, sbuffer));
         } else if(sbuffer.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
-            tokens.add(new Token(TokenType.IDENTIFIER, sbuffer));
+            Token id = new Token(TokenType.IDENTIFIER, sbuffer);
+            tokens.add(id);
+            if( tokens.size() > 0 ) {
+                Token pre_token = tokens.get(tokens.size() - 1);
+                if ( pre_token.getType() == TokenType.KEYWORD ){
+                    id.setId_type(pre_token.getValue());
+                    symbolTable.addSymbol(sbuffer,id);
+                }
+            }
         } else if(sbuffer.matches("\\\".*?\\\"")) {
             tokens.add(new Token(TokenType.STRING, sbuffer));
         }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
@@ -186,4 +200,12 @@ public class Lexer {
     }
 
 
+    public void set_ids_values(Token token){
+        for ( Token t : tokens ){
+
+        }
+    }
+
+
 }
+

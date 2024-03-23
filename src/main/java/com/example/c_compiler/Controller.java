@@ -20,7 +20,8 @@ public class Controller {
     private void handleButtonClick() {
         System.out.println("  .................... Tokenizing ............................. ");
         String input = input_area.getText();
-        Lexer l = new Lexer(input);
+        SymbolTable symbolTable = new SymbolTable();
+        Lexer l = new Lexer(input,symbolTable);
         l.tokenize();
         for ( Token t : l.tokens){
             System.out.println(t);

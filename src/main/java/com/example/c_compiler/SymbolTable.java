@@ -1,36 +1,55 @@
 package com.example.c_compiler;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SymbolTable {
-    private Map<String,TokenType>symbols;
+
+class SymbolTable {
+    private Deque<Map<String, Token>> scopeStack;
 
     public SymbolTable() {
-        symbols = new HashMap<>();
-    }
-    public void addSymbol(String symbol, TokenType tokenType) {
-        symbols.put(symbol, tokenType);
+        scopeStack = new ArrayDeque<>();
+        scopeStack.push(new HashMap<>());
     }
 
-    /*private List<Identifier> table;
-
-    public SymbolTable() {
-        this.table = new ArrayList<>();
+    public void startScope() {
+        scopeStack.push(new HashMap<>());
     }
 
-    public void addEntry(String name, String type) {
-
+    public void endScope() {
+        scopeStack.pop();
     }
 
-    public Identifier getEntry(String name) {
-        for (Identifier entry : table) {
-            if (entry.getName().equals(name)) {
-                return entry;
+    public boolean addSymbol(String name, Token token) {
+        Map<String, Token> currentScope = scopeStack.peek();
+        if (currentScope.containsKey(name)) {
+            return false;
+        } else {
+            currentScope.put(name, token);
+            return true;
+        }
+    }
+
+
+    public Token lookup(String name) {
+        for (Map<String, Token> scope : scopeStack) {
+            if (scope.containsKey(name)) {
+                return scope.get(name);
             }
         }
         return null;
-    }*/
+    }
+
+    public void display() {
+        System.out.println("Symbol Table:");
+        for (Map<String, Token> scope : scopeStack) {
+            for (Map.Entry<String, Token> entry : scope.entrySet()) {
+                System.out.println("Identifier: " + entry.getKey() + ", Token: " + entry);
+            }
+            System.out.println("-----");
+        }
+    }
+
 }
+
