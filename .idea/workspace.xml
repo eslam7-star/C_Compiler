@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xc equal_negative &amp;&amp; positive signs">
+    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xd symbol_table">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
@@ -88,7 +88,9 @@
       <workItem from="1710758229702" duration="67000" />
       <workItem from="1710758400821" duration="962000" />
       <workItem from="1711066270058" duration="1162000" />
-      <workItem from="1711109299980" duration="25792000" />
+      <workItem from="1711109299980" duration="25989000" />
+      <workItem from="1711261758465" duration="8000" />
+      <workItem from="1711481168716" duration="7646000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>
@@ -146,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711138920701</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="0xd symbol_table">
+      <created>1711152222118</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1711152222118</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,6 +206,7 @@
     <MESSAGE value="0xa operators &amp; Literals" />
     <MESSAGE value="0xb negative_literals" />
     <MESSAGE value="0xc equal_negative &amp;&amp; positive signs" />
-    <option name="LAST_COMMIT_MESSAGE" value="0xc equal_negative &amp;&amp; positive signs" />
+    <MESSAGE value="0xd symbol_table" />
+    <option name="LAST_COMMIT_MESSAGE" value="0xd symbol_table" />
   </component>
 </project>

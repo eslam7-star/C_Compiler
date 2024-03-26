@@ -79,8 +79,8 @@ public class Lexer {
             Token id = new Token(TokenType.IDENTIFIER, sbuffer);
             tokens.add(id);
             if( tokens.size() > 0 ) {
-                Token pre_token = tokens.get(tokens.size() - 1);
-                if ( pre_token.getType() == TokenType.KEYWORD ){
+                Token pre_token = tokens.get(tokens.size() - 2);
+                if ( pre_token.getType() == TokenType.KEYWORD){
                     id.setId_type(pre_token.getValue());
                     symbolTable.addSymbol(sbuffer,id);
                 }
@@ -89,24 +89,30 @@ public class Lexer {
             tokens.add(new Token(TokenType.STRING, sbuffer));
         }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
             tokens.add(new Token(TokenType.Character,sbuffer));
-        }else if( sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") || sbuffer.matches("[-+]?[1-9][0-9]*") || sbuffer.matches("[-+]?0[bB][01]+") || sbuffer.matches("[-+]?0[xX][0-9a-fA-F]+") || sbuffer.matches("[-+]?0[0-7]*")){
-            if( tokens.size() > 0 ) {
+        }else if( sbuffer.matches("[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") || sbuffer.matches("[1-9][0-9]*") || sbuffer.matches("0[bB][01]+") || sbuffer.matches("0[xX][0-9a-fA-F]+") || sbuffer.matches("0[0-7]+")){
+            while (tokens.size() > 1 &&
+                    (tokens.get(tokens.size() - 1).getType() == TokenType.SUB ||
+                            tokens.get(tokens.size() - 1).getType() == TokenType.ADD || (tokens.get(tokens.size() - 1).getType() == TokenType.UnknownOP && tokens.get(tokens.size() - 1).getValue().matches("[+-][-+]") ) )) {
                 Token t1 = tokens.get(tokens.size() - 1);
                 Token t2 = tokens.get(tokens.size() - 2);
-                if ( (t1.getType() == TokenType.SUB || t1.getType() == TokenType.ADD ) && !(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC || t2.getType() == TokenType.DEC)  ) {
+
+                if (!(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC ||
+                        t2.getType() == TokenType.DEC)) {
                     sbuffer = t1.getValue() + sbuffer;
                     tokens.remove(tokens.size() - 1);
+                } else {
+                    break;
                 }
             }
-            if( sbuffer.matches("[-+]?[1-9][0-9]*")){
+            if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)[1-9][0-9]*|0")){
                 tokens.add(new Token(TokenType.DECIMAL,sbuffer));
-            }else if( sbuffer.matches("[-+]?0[bB][01]+")){
+            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[bB][01]+")){
                 tokens.add(new Token(TokenType.BINARY,sbuffer));
-            }else if( sbuffer.matches("[-+]?0[xX][0-9a-fA-F]+")){
+            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[xX][0-9a-fA-F]+")){
                 tokens.add(new Token(TokenType.HEX,sbuffer));
-            }else if( sbuffer.matches("[-+]?0[0-7]*")){
+            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[0-7]+")){
                 tokens.add(new Token(TokenType.OCTAL,sbuffer));
-            }else if( sbuffer.matches("[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") ){
+            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)(0|[1-9][0-9]*)((e|E)(\\+|-)?[0-9]+)?\n") ){
                 tokens.add(new Token(TokenType.FLOAT,sbuffer));
             }else {
                 System.out.println("Syntax Error here :" + sbuffer);
@@ -199,12 +205,6 @@ public class Lexer {
         return input.replaceAll(pattern,"");
     }
 
-
-    public void set_ids_values(Token token){
-        for ( Token t : tokens ){
-
-        }
-    }
 
 
 }

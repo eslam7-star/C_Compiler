@@ -26,6 +26,7 @@ public class Controller {
         for ( Token t : l.tokens){
             System.out.println(t);
         }
+        symbolTable.display();
     }
 
 

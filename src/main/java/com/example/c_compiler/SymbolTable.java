@@ -51,5 +51,13 @@ class SymbolTable {
         }
     }
 
+
+    public Deque<Map<String, Token>> getScopeStack() {
+        return scopeStack;
+    }
+
+    public void setScopeStack(Deque<Map<String, Token>> scopeStack) {
+        this.scopeStack = scopeStack;
+    }
 }
 

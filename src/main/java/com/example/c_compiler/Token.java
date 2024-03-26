@@ -47,8 +47,6 @@ public class Token{
         return "Token{" +
                 "type=" + type +
                 ", token='" + token + '\'' +
-                ", Id_value='" + Id_value + '\'' +
-                ", Id_type='" + Id_type + '\'' +
                 '}';
     }
 }
