@@ -31,7 +31,6 @@ class SymbolTable {
         }
     }
 
-
     public Token lookup(String name) {
         for (Map<String, Token> scope : scopeStack) {
             if (scope.containsKey(name)) {
@@ -42,12 +41,16 @@ class SymbolTable {
     }
 
     public void display() {
-        System.out.println("Symbol Table:");
+        System.out.println("---------------------------- Symbol Table ----------------------------");
+        System.out.println("-----------------------------------------------------------");
+        int i=0;
         for (Map<String, Token> scope : scopeStack) {
+            System.out.println("-----------------------"+ "Scope"+ i+"------------------------------------");
             for (Map.Entry<String, Token> entry : scope.entrySet()) {
-                System.out.println("Identifier: " + entry.getKey() + ", Token: " + entry);
+                System.out.println("Identifier: " + entry.getKey() + ", Token: " + entry.getValue().getId_type() );
             }
-            System.out.println("-----");
+            i++;
+            System.out.println("-----------------------------------------------------------");
         }
     }
 

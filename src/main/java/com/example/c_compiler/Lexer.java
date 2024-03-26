@@ -78,18 +78,18 @@ public class Lexer {
         } else if(sbuffer.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
             Token id = new Token(TokenType.IDENTIFIER, sbuffer);
             tokens.add(id);
-            if( tokens.size() > 0 ) {
+            if( tokens.size() - 1 > 0 ) {
                 Token pre_token = tokens.get(tokens.size() - 2);
                 if ( pre_token.getType() == TokenType.KEYWORD){
                     id.setId_type(pre_token.getValue());
-                    symbolTable.addSymbol(sbuffer,id);
                 }
+                symbolTable.addSymbol(sbuffer,id);
             }
         } else if(sbuffer.matches("\\\".*?\\\"")) {
             tokens.add(new Token(TokenType.STRING, sbuffer));
         }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
             tokens.add(new Token(TokenType.Character,sbuffer));
-        }else if( sbuffer.matches("[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?") || sbuffer.matches("[1-9][0-9]*") || sbuffer.matches("0[bB][01]+") || sbuffer.matches("0[xX][0-9a-fA-F]+") || sbuffer.matches("0[0-7]+")){
+        }else if( sbuffer.matches("[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?") || sbuffer.matches("[1-9][0-9]*|0") || sbuffer.matches("0[bB][01]+") || sbuffer.matches("0[xX][0-9a-fA-F]+") || sbuffer.matches("0[0-7]+")){
             while (tokens.size() > 1 &&
                     (tokens.get(tokens.size() - 1).getType() == TokenType.SUB ||
                             tokens.get(tokens.size() - 1).getType() == TokenType.ADD || (tokens.get(tokens.size() - 1).getType() == TokenType.UnknownOP && tokens.get(tokens.size() - 1).getValue().matches("[+-][-+]") ) )) {
@@ -112,7 +112,7 @@ public class Lexer {
                 tokens.add(new Token(TokenType.HEX,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[0-7]+")){
                 tokens.add(new Token(TokenType.OCTAL,sbuffer));
-            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)(0|[1-9][0-9]*)((e|E)(\\+|-)?[0-9]+)?\n") ){
+            }else if( sbuffer.matches("[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?") ){
                 tokens.add(new Token(TokenType.FLOAT,sbuffer));
             }else {
                 System.out.println("Syntax Error here :" + sbuffer);
