@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xe floating_points &amp;&amp; symbol table">
-      <change afterPath="$PROJECT_DIR$/LEXER2.docx" afterDir="false" />
+    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xe final_ver">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LEXER2.docx" beforeDir="false" afterPath="$PROJECT_DIR$/LEXER2.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Token.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,7 +236,8 @@
     <MESSAGE value="0xd symbol_table" />
     <MESSAGE value="0xe updated_version" />
     <MESSAGE value="0xe floating_points &amp;&amp; symbol table" />
-    <option name="LAST_COMMIT_MESSAGE" value="0xe floating_points &amp;&amp; symbol table" />
+    <MESSAGE value="0xe final_ver" />
+    <option name="LAST_COMMIT_MESSAGE" value="0xe final_ver" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/c_compiler$com_example_c_compiler_HelloApplication.ic" NAME="com.example.c_compiler.HelloApplication Coverage Results" MODIFIED="1711513051267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

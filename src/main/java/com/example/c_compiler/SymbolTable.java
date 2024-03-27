@@ -47,7 +47,8 @@ class SymbolTable {
         for (int i = 0; i < allScopes.size(); i++) {
             LinkedList<Map<String, Token>> scopes = allScopes.get(i);
             for (Map<String, Token> scope : scopes) {
-                displayScope(i, scope);
+                if( !scope.isEmpty() )
+                    displayScope(i, scope);
             }
         }
     }
@@ -55,7 +56,7 @@ class SymbolTable {
     private void displayScope(int scopeIndex, Map<String, Token> scopeSymbols) {
         System.out.println("----------------------- Scope Level " + scopeIndex + " ------------------------");
         for (Map.Entry<String, Token> entry : scopeSymbols.entrySet()) {
-            System.out.println("Identifier: " + entry.getKey() + ", Token: " + entry.getValue().getId_type());
+            System.out.println("Identifier: " + entry.getKey() + ", Token type: " + entry.getValue().getId_type());
         }
         System.out.println("-----------------------------------------------------------");
     }
