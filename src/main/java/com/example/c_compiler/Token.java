@@ -30,6 +30,14 @@ public class Token{
         return Id_value;
     }
 
+    public Token(Token other) {
+        this.type = other.type;
+        this.token = other.token;
+        this.Id_value = other.Id_value;
+        this.Id_type = other.Id_type;
+    }
+
+
     public void setId_value(String id_value) {
         Id_value = id_value;
     }

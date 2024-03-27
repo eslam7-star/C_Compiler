@@ -112,7 +112,7 @@ public class Lexer {
                 tokens.add(new Token(TokenType.HEX,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[0-7]+")){
                 tokens.add(new Token(TokenType.OCTAL,sbuffer));
-            }else if( sbuffer.matches("[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?") ){
+            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?") ){
                 tokens.add(new Token(TokenType.FLOAT,sbuffer));
             }else {
                 System.out.println("Syntax Error here :" + sbuffer);
