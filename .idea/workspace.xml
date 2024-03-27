@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xe floating_points &amp;&amp; symbol table">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LEXER.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711495617482</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="0xe floating_points &amp;&amp; symbol table">
+      <created>1711497131086</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1711497131086</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
