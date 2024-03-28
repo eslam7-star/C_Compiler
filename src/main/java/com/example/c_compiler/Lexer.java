@@ -11,6 +11,8 @@ public class Lexer {
 
     protected SymbolTable symbolTable;
 
+
+
     public Lexer(String input, SymbolTable symbolTable) {
         this.input=input;
         this.currentPosition = 0;
@@ -50,7 +52,6 @@ public class Lexer {
                     }
                 }
                 op = "";
-                buffer.delete(0, buffer.length());
             }else{
                 StringBuilder b = new StringBuilder();
                 if ( input.charAt(currentPosition) == '"' ){
@@ -69,6 +70,7 @@ public class Lexer {
         if(buffer.length() > 0) {
             addToken(buffer);
         }
+        buffer.delete(0, buffer.length());
     }
 
     public void addToken(StringBuilder buffer) {
@@ -89,31 +91,45 @@ public class Lexer {
             tokens.add(new Token(TokenType.STRING, sbuffer));
         }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
             tokens.add(new Token(TokenType.Character,sbuffer));
-        }else if( sbuffer.matches("[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?") || sbuffer.matches("[1-9][0-9]*|0") || sbuffer.matches("0[bB][01]+") || sbuffer.matches("0[xX][0-9a-fA-F]+") || sbuffer.matches("0[0-7]+")){
+        }else if( sbuffer.matches("(((([0-9]*\\.[0-9]+)|([0-9]*))([eE][-+]?[0-9]+)?)|([0-9.]*(e|E)))") || sbuffer.matches("[1-9][0-9]*|0") || sbuffer.matches("0[bB][01]+") || sbuffer.matches("0[xX][0-9a-fA-F]+") || sbuffer.matches("0[0-7]+")){
             while (tokens.size() > 1 &&
                     (tokens.get(tokens.size() - 1).getType() == TokenType.SUB ||
                             tokens.get(tokens.size() - 1).getType() == TokenType.ADD || (tokens.get(tokens.size() - 1).getType() == TokenType.UnknownOP && tokens.get(tokens.size() - 1).getValue().matches("[+-][-+]") ) )) {
                 Token t1 = tokens.get(tokens.size() - 1);
                 Token t2 = tokens.get(tokens.size() - 2);
 
+
                 if (!(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC ||
-                        t2.getType() == TokenType.DEC)) {
+                        t2.getType() == TokenType.DEC ) ) {
                     sbuffer = t1.getValue() + sbuffer;
                     tokens.remove(tokens.size() - 1);
                 } else {
                     break;
                 }
             }
+
             if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)[1-9][0-9]*|0")){
-                tokens.add(new Token(TokenType.DECIMAL,sbuffer));
+                // handling floating signed E/e
+                if( tokens.size() >= 1) {
+                    if ( tokens.get( tokens.size() - 1).getValue().matches("[0-9.]*(e|E)")){
+                        sbuffer = tokens.get(tokens.size() - 1).getValue() + sbuffer;
+                        if( tokens.size() > 1 && tokens.get(tokens.size()-2).getValue().matches("((\\+-)*\\+?|(-\\+)*-?)") ) {
+                            sbuffer = tokens.get(tokens.size() - 2).getValue() + sbuffer;
+                            tokens.remove(tokens.size() -2);
+                        }
+                        tokens.get( tokens.size() - 1).setToken(sbuffer);
+                    }
+                }else {
+                    tokens.add(new Token(TokenType.DECIMAL, sbuffer));
+                }
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[bB][01]+")){
                 tokens.add(new Token(TokenType.BINARY,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[xX][0-9a-fA-F]+")){
                 tokens.add(new Token(TokenType.HEX,sbuffer));
-            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)((0\\.[0-9]+)|([1-9][0-9]\\.?[0-9])|0)([eE][-+]?[0-9]+)?") ){
-                tokens.add(new Token(TokenType.FLOAT,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[0-7]+")){
                 tokens.add(new Token(TokenType.OCTAL,sbuffer));
+            }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)(((([0-9]*\\.[0-9]+)|([0-9]*))([eE][-+]?[0-9]+)?)|([0-9.]*(e|E)))") && !sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)(0[0-9]*)")){
+                tokens.add(new Token(TokenType.FLOAT,sbuffer));
             }else {
                 System.out.println("Syntax Error here :" + sbuffer);
             }

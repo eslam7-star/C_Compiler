@@ -9,6 +9,7 @@ class SymbolTable {
 
     public SymbolTable() {
         allScopes = new ArrayList<>();
+        allScopes.add(new LinkedList<>());
         scopeStack = new ArrayDeque<>();
         scopeStack.push(new HashMap<>());
         this.current_scope_level = 0;
@@ -41,7 +42,8 @@ class SymbolTable {
 
     public void display() {
         // Add the level 0 scope to allScopes
-        allScopes.get(0).add(new HashMap<>(scopeStack.peek()));
+        if( !scopeStack.isEmpty() )
+            allScopes.get(0).add(new HashMap<>(scopeStack.peek()));
         System.out.println("---------------------------- Symbol Table ----------------------------");
         System.out.println("-----------------------------------------------------------");
         for (int i = 0; i < allScopes.size(); i++) {
