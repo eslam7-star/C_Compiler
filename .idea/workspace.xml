@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xe final_ver">
+    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xF final_ver">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/compiler-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/compiler-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +89,8 @@
       <workItem from="1711109299980" duration="25989000" />
       <workItem from="1711261758465" duration="8000" />
       <workItem from="1711481168716" duration="8019000" />
-      <workItem from="1711559801983" duration="18882000" />
+      <workItem from="1711559801983" duration="21769000" />
+      <workItem from="1711597583121" duration="2604000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>
@@ -190,7 +190,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711524337153</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="0xF final_ver">
+      <created>1711585529547</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1711585529547</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +252,19 @@
     <MESSAGE value="0xe updated_version" />
     <MESSAGE value="0xe floating_points &amp;&amp; symbol table" />
     <MESSAGE value="0xe final_ver" />
-    <option name="LAST_COMMIT_MESSAGE" value="0xe final_ver" />
+    <MESSAGE value="0xF final_ver" />
+    <option name="LAST_COMMIT_MESSAGE" value="0xF final_ver" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java</url>
+          <line>76</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/c_compiler$com_example_c_compiler_HelloApplication.ic" NAME="com.example.c_compiler.HelloApplication Coverage Results" MODIFIED="1711513051267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

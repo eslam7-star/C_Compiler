@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="Bpane" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.c_compiler.Controller">
 
@@ -29,7 +30,10 @@
     </top>
 
     <center>
-        <TextArea fx:id="input_area" prefHeight="400" prefWidth="600" />
+        <TextArea fx:id="input_area" prefHeight="400" prefWidth="600">
+         <font>
+            <Font name="Times New Roman" size="20.0" />
+         </font></TextArea>
     </center>
 
     <bottom>

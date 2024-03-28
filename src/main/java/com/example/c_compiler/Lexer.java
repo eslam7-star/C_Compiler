@@ -110,16 +110,15 @@ public class Lexer {
 
             if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)[1-9][0-9]*|0")){
                 // handling floating signed E/e
-                if( tokens.size() >= 1) {
-                    if ( tokens.get( tokens.size() - 1).getValue().matches("[0-9.]*(e|E)")){
-                        sbuffer = tokens.get(tokens.size() - 1).getValue() + sbuffer;
-                        if( tokens.size() > 1 && tokens.get(tokens.size()-2).getValue().matches("((\\+-)*\\+?|(-\\+)*-?)") ) {
-                            sbuffer = tokens.get(tokens.size() - 2).getValue() + sbuffer;
-                            tokens.remove(tokens.size() -2);
-                        }
-                        tokens.get( tokens.size() - 1).setToken(sbuffer);
+                if ( tokens.size() > 1 && tokens.get( tokens.size() - 1).getValue().matches("((\\+-)*\\+?|(-\\+)*-?)[0-9.]*(e|E)")){
+                    sbuffer = tokens.get(tokens.size() - 1).getValue() + sbuffer;
+                    if( tokens.size() > 1 && tokens.get(tokens.size()-2).getValue().matches("((\\+-)*\\+?|(-\\+)*-?)") ) {
+                        sbuffer = tokens.get(tokens.size() - 2).getValue() + sbuffer;
+                        tokens.remove(tokens.size() -2);
                     }
-                }else {
+                    tokens.get( tokens.size() - 1).setToken(sbuffer);
+                }
+                else {
                     tokens.add(new Token(TokenType.DECIMAL, sbuffer));
                 }
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[bB][01]+")){
