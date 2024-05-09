@@ -220,6 +220,9 @@ public class Lexer {
         return input.replaceAll(pattern,"");
     }
 
+    public List<Token> getTokens() {
+        return tokens;
+    }
 
 
 }

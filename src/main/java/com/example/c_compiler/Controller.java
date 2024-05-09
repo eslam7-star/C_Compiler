@@ -27,6 +27,8 @@ public class Controller {
             System.out.println(t);
         }
         symbolTable.display();
+        Parser p = new Parser(l.getTokens());
+        p.parse();
     }
 
 

@@ -5,6 +5,8 @@ import java.util.List;
 public class Parser {
     private List<Token> tokens;
     private int currentTokenIndex;
+    private Node root;
+    private Node currentNode;
 
     String[] dataTypes = {
             "int", "short", "long", "long long", "unsigned int",
@@ -16,6 +18,8 @@ public class Parser {
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
         this.currentTokenIndex = 0;
+        this.root = new Node(null);  // Root node has no token
+        this.currentNode = root;
     }
 
     public boolean parse() {
@@ -394,11 +398,95 @@ public class Parser {
             return parseWhileStatement();
         } else if (match("do")) {
             return parseDoWhileStatement();
+        } else if (is_a_type(tokens.get(currentTokenIndex).getValue())) {
+            return parseFunctionDefinition();
         } else {
             // Since no statement type matches, return false
             reportError("Invalid statement");
             return false;
         }
+    }
+
+    private boolean parseFunctionDefinition() {
+        Node functionNode = new Node(tokens.get(currentTokenIndex)); // Create a new node for the function
+        currentNode.addChild(functionNode); // Add the function node to the parse tree
+        currentNode = functionNode; // Set the current node to the function node
+    
+        if (!is_a_type(tokens.get(currentTokenIndex).getValue())) {
+            reportError("Expected function return type");
+            return false;
+        }
+        currentTokenIndex++;
+    
+        if (!match(TokenType.IDENTIFIER)) {
+            reportError("Expected function name");
+            return false;
+        }
+        currentTokenIndex++;
+    
+        if (!tokens.get(currentTokenIndex).getValue().equals("(")) {
+            reportError("Expected '(' after function name");
+            return false;
+        }
+        currentTokenIndex++;
+    
+        if (!parseParameterList()) {
+            return false;
+        }
+    
+        if (!tokens.get(currentTokenIndex).getValue().equals(")")) {
+            reportError("Expected ')' after parameter list");
+            return false;
+        }
+        currentTokenIndex++;
+    
+        if (!parseBlock()) {
+            return false;
+        }
+    
+        currentNode = currentNode.getParent(); // Go back to the parent node after parsing the function
+    
+        return true;
+    }
+
+    private boolean parseParameterList() {
+        Node parameterListNode = new Node(null); // Create a new node for the parameter list
+        currentNode.addChild(parameterListNode); // Add the parameter list node to the parse tree
+        Node currentNodeBackup = currentNode; // Backup the current node
+        currentNode = parameterListNode; // Set the current node to the parameter list node
+    
+        do {
+            Node parameterNode = new Node(tokens.get(currentTokenIndex)); // Create a new node for the parameter
+            currentNode.addChild(parameterNode); // Add the parameter node to the parse tree
+            currentNode = parameterNode; // Set the current node to the parameter node
+    
+            if (!is_a_type(tokens.get(currentTokenIndex).getValue())) {
+                reportError("Expected parameter type");
+                return false;
+            }
+            currentTokenIndex++;
+    
+            if (!match(TokenType.IDENTIFIER)) {
+                reportError("Expected parameter name");
+                return false;
+            }
+            currentTokenIndex++;
+    
+            currentNode = currentNode.getParent(); // Go back to the parameter list node after parsing the parameter
+    
+            if (tokens.get(currentTokenIndex).getValue().equals(",")) {
+                currentTokenIndex++;
+            } else if (tokens.get(currentTokenIndex).getValue().equals(")")) {
+                break;
+            } else {
+                reportError("Expected ',' or ')' after parameter");
+                return false;
+            }
+        } while (true);
+    
+        currentNode = currentNodeBackup; // Restore the current node
+    
+        return true;
     }
 
     private boolean parseForStatement() {

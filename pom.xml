@@ -38,6 +38,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        <groupId>org.abego.treelayout</groupId>
+        <artifactId>org.abego.treelayout.core</artifactId>
+        <version>1.0.3</version>
+    </dependency>
     </dependencies>
 
     <build>
@@ -47,8 +52,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.9.0</version>
                 <configuration>
-                    <source>19</source>
-                    <target>19</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
             <plugin>
