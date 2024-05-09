@@ -16,7 +16,6 @@ import java.util.Scanner;
 
 public class HelloApplication extends Application {
 
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader_1 = new FXMLLoader(HelloApplication.class.getResource("compiler-view.fxml"));

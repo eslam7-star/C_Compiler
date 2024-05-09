@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0xF final_ver">
+    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0x10">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/compiler-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/compiler-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/HelloApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +18,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -35,16 +35,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/project_oop&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/ESLAM ASHRAF/Downloads/Mini-Compiler-master",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\c_compiler\src\main\java\com\example\c_compiler" />
@@ -90,7 +90,17 @@
       <workItem from="1711261758465" duration="8000" />
       <workItem from="1711481168716" duration="8019000" />
       <workItem from="1711559801983" duration="21769000" />
-      <workItem from="1711597583121" duration="2604000" />
+      <workItem from="1711597583121" duration="4950000" />
+      <workItem from="1713137806029" duration="9000" />
+      <workItem from="1713249816830" duration="14000" />
+      <workItem from="1713821791806" duration="251000" />
+      <workItem from="1713823391050" duration="397000" />
+      <workItem from="1713905331426" duration="54000" />
+      <workItem from="1713911204161" duration="778000" />
+      <workItem from="1715099774588" duration="761000" />
+      <workItem from="1715100900057" duration="41000" />
+      <workItem from="1715100956701" duration="1313000" />
+      <workItem from="1715277889743" duration="8818000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>
@@ -197,7 +207,21 @@
       <option name="project" value="LOCAL" />
       <updated>1711585529547</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="0xF final_ver">
+      <created>1711600729432</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1711600729432</updated>
+    </task>
+    <task id="LOCAL-00017" summary="0x10">
+      <created>1711601557877</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1711601557877</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,18 +277,8 @@
     <MESSAGE value="0xe floating_points &amp;&amp; symbol table" />
     <MESSAGE value="0xe final_ver" />
     <MESSAGE value="0xF final_ver" />
-    <option name="LAST_COMMIT_MESSAGE" value="0xF final_ver" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="0x10" />
+    <option name="LAST_COMMIT_MESSAGE" value="0x10" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/c_compiler$com_example_c_compiler_HelloApplication.ic" NAME="com.example.c_compiler.HelloApplication Coverage Results" MODIFIED="1711513051267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
