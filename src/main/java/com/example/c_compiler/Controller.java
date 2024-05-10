@@ -28,7 +28,8 @@ public class Controller {
         }
         symbolTable.display();
         Parser p = new Parser(l.getTokens());
-        p.parse();
+        Node root = p.parse();
+        p.traverse(root, 10);
     }
 
 

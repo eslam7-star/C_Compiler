@@ -4,22 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private Node parent;
-    private List<Node> children;
-    private Token token;
+    String name;
+    List<Node> children;
 
-    public Node(Token token) {
-        this.token = token;
+    Node(String name) {
+        this.name = name;
         this.children = new ArrayList<>();
     }
 
-    public Node getParent() {
-        return parent;
-    }
-
-    public void addChild(Node child) {
-        child.parent = this;
-        this.children.add(child);
+    void addChild(Node child) {
+        children.add(child);
     }
 
     // Other methods...
