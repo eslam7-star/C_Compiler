@@ -318,7 +318,7 @@ public class Parser {
             return false;
         }
         if (!tokens.get(currentTokenIndex).getValue().matches("\\(")) {
-            reportError("Expected '(' after function identifier");
+            reportError("Expected '(' after function identifier"+ tokens.get(currentTokenIndex));
             return false;
         }
         currentTokenIndex++;
@@ -399,8 +399,10 @@ public class Parser {
         } else if (match("do")) {
             return parseDoWhileStatement();
         } else if (is_a_type(tokens.get(currentTokenIndex).getValue())) {
-            return parseFunctionDefinition();
-        } else {
+            if( !parseFunctionDefinition() ){
+                
+            }
+        }else {
             // Since no statement type matches, return false
             reportError("Invalid statement");
             return false;
@@ -411,41 +413,40 @@ public class Parser {
         Node functionNode = new Node(tokens.get(currentTokenIndex)); // Create a new node for the function
         currentNode.addChild(functionNode); // Add the function node to the parse tree
         currentNode = functionNode; // Set the current node to the function node
-    
+
         if (!is_a_type(tokens.get(currentTokenIndex).getValue())) {
             reportError("Expected function return type");
             return false;
         }
         currentTokenIndex++;
-    
+
         if (!match(TokenType.IDENTIFIER)) {
             reportError("Expected function name");
             return false;
         }
-        currentTokenIndex++;
-    
+
         if (!tokens.get(currentTokenIndex).getValue().equals("(")) {
-            reportError("Expected '(' after function name");
+            reportError("Expected '(' after function name"+ tokens.get(currentTokenIndex) + tokens.get(currentTokenIndex+1));
             return false;
         }
         currentTokenIndex++;
-    
+
         if (!parseParameterList()) {
             return false;
         }
-    
+
         if (!tokens.get(currentTokenIndex).getValue().equals(")")) {
             reportError("Expected ')' after parameter list");
             return false;
         }
         currentTokenIndex++;
-    
+
         if (!parseBlock()) {
             return false;
         }
-    
+
         currentNode = currentNode.getParent(); // Go back to the parent node after parsing the function
-    
+
         return true;
     }
 
@@ -454,26 +455,32 @@ public class Parser {
         currentNode.addChild(parameterListNode); // Add the parameter list node to the parse tree
         Node currentNodeBackup = currentNode; // Backup the current node
         currentNode = parameterListNode; // Set the current node to the parameter list node
-    
+
+        // If the next token is a closing parenthesis, return true immediately
+        if (tokens.get(currentTokenIndex).getValue().equals(")")) {
+            currentNode = currentNodeBackup; // Restore the current node
+            return true;
+        }
+
         do {
             Node parameterNode = new Node(tokens.get(currentTokenIndex)); // Create a new node for the parameter
             currentNode.addChild(parameterNode); // Add the parameter node to the parse tree
             currentNode = parameterNode; // Set the current node to the parameter node
-    
+
             if (!is_a_type(tokens.get(currentTokenIndex).getValue())) {
                 reportError("Expected parameter type");
                 return false;
             }
             currentTokenIndex++;
-    
+
             if (!match(TokenType.IDENTIFIER)) {
                 reportError("Expected parameter name");
                 return false;
             }
             currentTokenIndex++;
-    
+
             currentNode = currentNode.getParent(); // Go back to the parameter list node after parsing the parameter
-    
+
             if (tokens.get(currentTokenIndex).getValue().equals(",")) {
                 currentTokenIndex++;
             } else if (tokens.get(currentTokenIndex).getValue().equals(")")) {
@@ -483,9 +490,9 @@ public class Parser {
                 return false;
             }
         } while (true);
-    
+
         currentNode = currentNodeBackup; // Restore the current node
-    
+
         return true;
     }
 
