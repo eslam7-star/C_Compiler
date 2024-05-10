@@ -21,7 +21,7 @@ public enum TokenType {
         // Logical Operators
         AND, OR, NOT,
         // Bitwise Operators
-        BIT_AND, BIT_OR, BIT_XOR, BIT_NOT, LEFT_SHIFT, RIGHT_SHIFT, UnknownOP
+        BIT_AND, BIT_OR, BIT_XOR, BIT_NOT, LEFT_SHIFT, RIGHT_SHIFT, UnknownOP, PROGRAM
 
 }
 

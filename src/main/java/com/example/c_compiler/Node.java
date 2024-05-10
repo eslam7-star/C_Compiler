@@ -8,8 +8,15 @@ public class Node {
     private List<Node> children;
     private Token token;
 
+    private String str;
+
     public Node(Token token) {
         this.token = token;
+        this.children = new ArrayList<>();
+    }
+
+    public Node(String token_str) {
+        this.str = token_str;
         this.children = new ArrayList<>();
     }
 
