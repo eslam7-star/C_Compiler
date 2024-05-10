@@ -23,12 +23,25 @@ public class Parser {
     }
 
     public Node parse() {
-        return parseStatement();
+        Node program = new Node("Program");
+        while (currentTokenIndex < tokens.size()) {
+            Node statement = parseStatement();
+            if (statement == null) {
+                return null;
+            }
+            program.addChild(statement);
+        }
+        return program;
     }
 
     private Node parseStatement() {
         System.out.println("Current token: " + tokens.get(currentTokenIndex).getToken());
         System.out.println("Current token type: " + tokens.get(currentTokenIndex).getType());
+
+        if (currentTokenIndex >= tokens.size()) {
+            reportError("Unexpected end of input");
+            return null;
+        }
     
         if (match(TokenType.KEYWORD) && "int".equals(tokens.get(currentTokenIndex).getToken())) {
             return parseDeclarationStatement();
@@ -143,11 +156,16 @@ public class Parser {
             return null;
         }
         currentTokenIndex++; // Skip ')'
-        Node statement = parseStatement();
-        if (statement == null) {
+        if (currentTokenIndex < tokens.size()) {
+            Node statement = parseStatement();
+            if (statement == null) {
+                return null;
+            }
+            node.addChild(statement);
+        } else {
+            reportError("Expected a statement after 'if' condition");
             return null;
         }
-        node.addChild(statement);
         return node;
     }
 
@@ -181,7 +199,23 @@ public class Parser {
         return node;
     }
 
-    
+    private Node parseBlock() {
+        Node node = new Node("Block");
+        if (!match(TokenType.SYMBOL) || !"{".equals(tokens.get(currentTokenIndex).getToken())) {
+            reportError("Expected '{'");
+            return null;
+        }
+        currentTokenIndex++; // Skip '{'
+        while (!match(TokenType.SYMBOL) || !"}".equals(tokens.get(currentTokenIndex).getToken())) {
+            Node statement = parseStatement();
+            if (statement == null) {
+                return null;
+            }
+            node.addChild(statement);
+        }
+        currentTokenIndex++; // Skip '}'
+        return node;
+    }
 
     private void reportError(String error) {
         System.out.println("Error: " + error);
