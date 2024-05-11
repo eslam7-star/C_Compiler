@@ -12,13 +12,14 @@ public class Parser {
             "int", "short", "long", "long long", "unsigned int",
             "float", "double", "long double",
             "char", "signed char", "unsigned char",
-            "void"
+            "void","char","struct", "enum", "union", "typedef"
     };
 
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
         this.currentTokenIndex = 0;
-        this.root = new Node(null);  // Root node has no token
+        Token program = new Token(TokenType.PROGRAM,"PROGRAM");
+        this.root = new Node(program);  // Root node has no token
         this.currentNode = root;
     }
 
@@ -271,9 +272,111 @@ public class Parser {
         }
         return false;
     }
+    private boolean parsePostfixExpression() {
+        Node postfixExpressionNode = new Node("postfix_expression");
 
+        if (match("IDENTIFIER")) {
+            // Identifier
+            Node identifierNode = new Node(tokens.get(currentTokenIndex)); // Create a node for the identifier
+            postfixExpressionNode.addChild(identifierNode); // Add identifier node to the postfix expression node
+        } else if (isConstant(tokens.get(currentTokenIndex))) {
+            // Constant
+            Node constantNode = new Node(tokens.get(currentTokenIndex)); // Create a node for the constant
+            postfixExpressionNode.addChild(constantNode); // Add constant node to the postfix expression node
+            currentTokenIndex++;
+        } else if (match("STRING")) {
+            // String literal
+            Node stringLiteralNode = new Node(tokens.get(currentTokenIndex)); // Create a node for the string literal
+            postfixExpressionNode.addChild(stringLiteralNode); // Add string literal node to the postfix expression node
+        } else if (match("(")) {
+            // Parenthesized expression
+            if (!parseExpression()) {
+                reportError("Invalid expression inside parentheses");
+                return false;
+            }
+            if (!match(")")) {
+                reportError("Expected ')' after expression");
+                return false;
+            }
+        } else {
+            // Invalid postfix expression
+            reportError("Invalid postfix expression");
+            return false;
+        }
 
+        // Check for postfix operators (e.g., array access, function call, increment, decrement)
+        while (true) {
+            if (match("[")) {
+                // Array access
+                Node arrayAccessNode = new Node(tokens.get(currentTokenIndex)); // Create a node for array access
+                postfixExpressionNode.addChild(arrayAccessNode); // Add array access node to the postfix expression node
 
+                if (!parseExpression()) {
+                    reportError("Invalid expression inside array access");
+                    return false;
+                }
+                if (!match("]")) {
+                    reportError("Expected ']' after array index");
+                    return false;
+                }
+
+            } else if (match("(")) {
+                // Function call
+                Node functionCallNode = new Node(tokens.get(currentTokenIndex)); // Create a node for function call
+                postfixExpressionNode.addChild(functionCallNode); // Add function call node to the postfix expression node
+
+                if (!parseArgumentExpressionList(functionCallNode)) {
+                    // Error handling if the argument expression list parsing fails
+                    return false;
+                }
+                if (!match(")")) {
+                    reportError("Expected ')' after argument list");
+                    return false;
+                }
+
+            } else if (match("++") || match("--")) {
+                // Increment or decrement
+                Node incrementDecrementNode = new Node(tokens.get(currentTokenIndex)); // Create a node for increment/decrement
+                postfixExpressionNode.addChild(incrementDecrementNode); // Add increment/decrement node to the postfix expression node
+
+            } else {
+                // No more postfix operators
+                break;
+            }
+        }
+
+        currentNode.addChild(postfixExpressionNode); // Add postfix expression node to the current node
+        return true;
+    }
+
+    private boolean parseArgumentExpressionList(Node functionCallNode) {
+        // Create a node for the argument expression list
+        Node argumentExpressionListNode = new Node("argument_expression_list");
+
+        // Add the argument expression list node as a child of the function call node
+        functionCallNode.addChild(argumentExpressionListNode);
+
+        // Parse the first argument expression, if present
+        if (!parseAssignmentExpression()) {
+            // Error handling if the assignment expression parsing fails
+            reportError("Invalid argument expression in function call");
+            return false;
+        }
+
+        // Parse additional argument expressions separated by commas
+        while (match(",")) {
+            // Move to the next token after the comma
+
+            // Parse the next argument expression
+            if (!parseAssignmentExpression()) {
+                // Error handling if the assignment expression parsing fails
+                reportError("Invalid argument expression in function call");
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     private boolean match(TokenType type) {
         if (currentTokenIndex >= tokens.size()) {
