@@ -32,36 +32,52 @@ public class Lexer {
                     addToken(buffer);
                 }
                 op = Character.toString(currentChar);
-                if(op.matches("[-+*/%&|<>^!~=]")) {
+                if(op.matches("[-*/%&|<>^!~=]")) {
                     currentPosition++;      
-                    if( op.equals("=") && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~]") ){
-                        tokens.add(new Token(TokenType.ASSIGN,"="));
-                        continue;
-                    }else if( currentPosition < input.length() && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~=]") ) {
-                        op += Character.toString(input.charAt(currentPosition));
-                    }else {
+                    if( currentPosition < input.length() && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~=]") ) {
+                        // Check if the previous token is a number or a right parenthesis
+                        if (tokens.size() > 0) {
+                            Token prevToken = tokens.get(tokens.size() - 1);
+                            if (prevToken.getType() != TokenType.DECIMAL && prevToken.getType() != TokenType.FLOAT && !prevToken.getValue().equals(")")) {
+                                op += Character.toString(input.charAt(currentPosition));
+                            } else {
+                                currentPosition--;
+                            }
+                        } else {
+                            op += Character.toString(input.charAt(currentPosition));
+                        }
+                    } else {
                         currentPosition--;
                     }
                     tokens.add(new Token( recognizeOperator(op) ,op));
-                }else if ( !op.equals("\s") && !op.equals("\n") ){
+                } else if (op.equals("+") || op.equals("-")) {
+                    currentPosition++;
+                    if (currentPosition < input.length() && Character.isDigit(input.charAt(currentPosition))) {
+                        buffer.append(op);
+                        continue;
+                    } else {
+                        tokens.add(new Token(TokenType.SYMBOL, op));
+                        currentPosition--;
+                    }
+                } else if (!op.equals("\s") && !op.equals("\n")) {
                     tokens.add(new Token(TokenType.SYMBOL,op));
-                    if ( op.equals("{") ){
+                    if (op.equals("{")) {
                         symbolTable.startScope();
-                    } else if ( op.equals("}") ) {
+                    } else if (op.equals("}")) {
                         symbolTable.endScope();
                     }
                 }
                 op = "";
-            }else{
+            } else {
                 StringBuilder b = new StringBuilder();
-                if ( input.charAt(currentPosition) == '"' ){
+                if (input.charAt(currentPosition) == '"') {
                     currentPosition++;
-                    while ( input.charAt(currentPosition) != '"' ){
+                    while (input.charAt(currentPosition) != '"') {
                         b.append(input.charAt(currentPosition));
                         currentPosition++;
                     }
                     tokens.add(new Token(TokenType.STRING,b.toString()));
-                }else {
+                } else {
                     buffer.append(input.charAt(currentPosition));
                 }
             }
@@ -72,6 +88,7 @@ public class Lexer {
         }
         buffer.delete(0, buffer.length());
     }
+    
 
     public void addToken(StringBuilder buffer) {
         String sbuffer = buffer.toString();

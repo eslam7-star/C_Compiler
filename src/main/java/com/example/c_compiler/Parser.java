@@ -79,8 +79,6 @@ public class Parser {
 
     private Node parseAssignmentStatement() {
         Node node = new Node("AssignmentStatement");
-        System.out.println("Current token: " + tokens.get(currentTokenIndex).getToken());
-        System.out.println("Current token type: " + tokens.get(currentTokenIndex).getType());
         // Expect: <identifier> = <expression> ;
         if (!match(TokenType.IDENTIFIER)) {
             reportError("Expected identifier");
@@ -98,11 +96,70 @@ public class Parser {
             return null;
         }
         node.addChild(expression);
+        // If the next token is an operator, parse the next expression
+        while (tokens.get(currentTokenIndex).getValue().equals("+") || tokens.get(currentTokenIndex).getValue().equals("-") || match(TokenType.MUL) || match(TokenType.DIV) || match(TokenType.MOD)) {
+            Node operator = new Node("Operator: " + tokens.get(currentTokenIndex).getToken());
+            node.addChild(operator);
+            currentTokenIndex++; // Skip operator
+    
+            expression = parseExpression();
+            if (expression == null) {
+                return null;
+            }
+            node.addChild(expression);
+        }
         if (!match(TokenType.SYMBOL) || !";".equals(tokens.get(currentTokenIndex).getToken())) {
             reportError("Expected ';'");
             return null;
         }
         currentTokenIndex++; // Skip ';'
+        return node;
+    }
+
+    private Node parseExpression() {
+        Node node = new Node("Expression");
+        System.out.println("Current token: " + tokens.get(currentTokenIndex).getToken());
+        System.out.println("Current token type: " + tokens.get(currentTokenIndex).getType());
+        // Parse the first term
+        Node term = parseTerm();
+        if (term == null) {
+            return null;
+        }
+        node.addChild(term);
+        System.out.println("Current token: " + tokens.get(currentTokenIndex).getToken());
+        System.out.println("Current token type: " + tokens.get(currentTokenIndex).getType());
+        // While the next token is an 'ADD' or 'SUB', parse the next term
+        while (tokens.get(currentTokenIndex).getValue().equals("+") || tokens.get(currentTokenIndex).getValue().equals("-") || match(TokenType.MUL) || match(TokenType.DIV) || match(TokenType.MOD) || match(TokenType.EQ) || match(TokenType.NE) || match(TokenType.GT) || match(TokenType.LT) || match(TokenType.GE) || match(TokenType.LE) || match(TokenType.AND) || match(TokenType.OR) || match(TokenType.NOT) || match(TokenType.BIT_AND) || match(TokenType.BIT_OR) || match(TokenType.BIT_XOR) || match(TokenType.BIT_NOT) || match(TokenType.LEFT_SHIFT) || match(TokenType.RIGHT_SHIFT)){
+            Node operator = new Node("Operator: " + tokens.get(currentTokenIndex).getToken());
+            node.addChild(operator);
+            currentTokenIndex++; // Skip operator
+    
+            term = parseTerm();
+            if (term == null) {
+                return null;
+            }
+            node.addChild(term);
+        }
+    
+        return node;
+    }
+    private Node parseTerm() {
+        Node node = new Node("Term");
+        System.out.println("Current token: " + tokens.get(currentTokenIndex).getToken());
+        System.out.println("Current token type: " + tokens.get(currentTokenIndex).getType());
+        if (match(TokenType.DECIMAL) || match(TokenType.OCTAL) || match(TokenType.BINARY) || match(TokenType.HEX) || match(TokenType.FLOAT)) {
+            Node number = new Node("Number: " + tokens.get(currentTokenIndex).getToken());
+            node.addChild(number);
+            currentTokenIndex++; // Skip number
+        } else if (match(TokenType.IDENTIFIER)) {
+            Node identifier = new Node("Identifier: " + tokens.get(currentTokenIndex).getToken());
+            node.addChild(identifier);
+            currentTokenIndex++; // Skip identifier
+        } else {
+            reportError("Expected a number or identifier");
+            return null;
+        }
+    
         return node;
     }
 
@@ -167,7 +224,7 @@ public class Parser {
             return null;
         }
         node.addChild(expression);
-    
+        
         if (!match(TokenType.SYMBOL) || !")".equals(tokens.get(currentTokenIndex).getToken())) {
             reportError("Expected ')'");
             return null;
@@ -223,45 +280,7 @@ public class Parser {
         return blockNode;
     }
 
-    private Node parseExpression() {
-        Node node = new Node("Expression");
-        System.out.println("Current token: " + tokens.get(currentTokenIndex).getToken());
-        System.out.println("Current token type: " + tokens.get(currentTokenIndex).getType());
-        // Handle identifiers, numbers, booleans, and comparison operations
-        if (match(TokenType.IDENTIFIER)) {
-            node.addChild(new Node("Identifier: " + tokens.get(currentTokenIndex).getToken()));
-            currentTokenIndex++; // Skip identifier
-            if (match(TokenType.EQ) || match(TokenType.GE) || match(TokenType.LE) || match(TokenType.NE) || match(TokenType.GT) || match(TokenType.LT)) {
-                node.addChild(new Node("Operator: " + tokens.get(currentTokenIndex).getToken()));
-                currentTokenIndex++; // Skip operator
-                Node rightExpression = parseExpression();
-                if (rightExpression == null) {
-                    return null;
-                }
-                node.addChild(rightExpression);
-            }
-        } else if (match(TokenType.DECIMAL)) {
-            node.addChild(new Node("Number: " + tokens.get(currentTokenIndex).getToken()));
-            currentTokenIndex++; // Skip number
-            if (match(TokenType.EQ)) {
-                node.addChild(new Node("Operator: " + tokens.get(currentTokenIndex).getToken()));
-                currentTokenIndex++; // Skip operator
-                Node rightExpression = parseExpression();
-                if (rightExpression == null) {
-                    return null;
-                }
-                node.addChild(rightExpression);
-            }
-        } else if (match(TokenType.KEYWORD) && ("true".equals(tokens.get(currentTokenIndex).getToken()) || "false".equals(tokens.get(currentTokenIndex).getToken()))) {
-            node.addChild(new Node("Boolean: " + tokens.get(currentTokenIndex).getToken()));
-            currentTokenIndex++; // Skip boolean
-        } else {
-            reportError("Expected expression");
-            return null;
-        }
-        return node;
-        
-    }
+    
     /* 
     private Node parseBlock() {
         Node node = new Node("Block");
@@ -347,6 +366,7 @@ public class Parser {
             return false;
         }
         Token currentToken = tokens.get(currentTokenIndex);
+        
         return currentToken.getType() == type;
     }
 
