@@ -146,6 +146,8 @@ public class Parser {
         }
         return true;
     }
+
+
     private boolean parseShiftExpression() {
         Node shiftExpressionNode = new Node("shift_expression");
         currentNode.addChild(shiftExpressionNode); // Add shift expression node to the current node

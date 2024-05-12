@@ -1,7 +1,7 @@
 package com.example.c_compiler;
 
 
-public class Token{
+public class Tokenc {
     private TokenType type;
 
     private String token;
@@ -11,7 +11,7 @@ public class Token{
     private String Id_type;
 
 
-    public Token(TokenType type, String token) {
+    public Tokenc(TokenType type, String token) {
         this.type = type;
         this.token = token;
         this.Id_value = "";
@@ -30,7 +30,7 @@ public class Token{
         return Id_value;
     }
 
-    public Token(Token other) {
+    public Tokenc(Tokenc other) {
         this.type = other.type;
         this.token = other.token;
         this.Id_value = other.Id_value;
