@@ -2,6 +2,9 @@ package com.example.c_compiler;
 
 import java.util.List;
 
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+
 public class Parser {
     private List<Token> tokens;
     private int currentTokenIndex;
@@ -320,6 +323,13 @@ public class Parser {
         }
     }
 
+    TreeItem<String> buildTreeView(Node node) {
+        TreeItem<String> rootItem = new TreeItem<>(node.name);
+        for (Node child : node.children) {
+            rootItem.getChildren().add(buildTreeView(child));
+        }
+        return rootItem;
+    }
     
     
 

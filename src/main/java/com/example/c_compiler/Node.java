@@ -16,5 +16,8 @@ public class Node {
         children.add(child);
     }
 
+    public List<Node> getChildren() {
+        return children;
+    }
     // Other methods...
 }
