@@ -1,9 +1,8 @@
 package com.example.c_compiler;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -12,41 +11,29 @@ import java.util.Map;
 public class SymbolTableController {
 
     @FXML
-    private TableView<Tokenn> tableView;
-
-    @FXML
-    private TableColumn<Tokenn, String> nameColumn;
-
-    @FXML
-    private TableColumn<Tokenn, String> typeColumn;
-
-    @FXML
-    private TableColumn<Tokenn, Integer> scopeColumn;
-
+    private TreeView<String> treeView;
 
     public void initialize(SymbolTable symbolTable) {
-        // Set up cell value factories
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Tokenn, String>("Id_value"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<Tokenn, String>("type"));
+        // Create the root item for the tree
+        TreeItem<String> rootItem = new TreeItem<>("Symbol Table");
+        rootItem.setExpanded(true); // Expand the root item by default
 
-
-        // Display the symbol table in the TableView
-        displaySymbolTable(symbolTable);
-    }
-
-
-    private void displaySymbolTable(SymbolTable symbolTable) {
+        // Add each scope as a child item to the root
         int scopeLevel = 0;
-        // Iterate through each scope in the symbol table
         for (LinkedList<Map<String, Tokenn>> scopeList : symbolTable.getAllScopes()) {
-            // Iterate through each symbol entry in the current scope
+            TreeItem<String> scopeItem = new TreeItem<>("Scope Level " + scopeLevel);
             for (Map<String, Tokenn> scope : scopeList) {
                 for (Map.Entry<String, Tokenn> entry : scope.entrySet()) {
-                    // Add symbol entry to the TableView with scope level
-                    tableView.getItems().add(entry.getValue());
+                    // Add each symbol entry as a child item to the scope
+                    TreeItem<String> symbolItem = new TreeItem<>(entry.getKey() + " : " + entry.getValue().getType());
+                    scopeItem.getChildren().add(symbolItem);
                 }
             }
+            rootItem.getChildren().add(scopeItem);
             scopeLevel++;
         }
+
+        // Set the root item as the root of the tree view
+        treeView.setRoot(rootItem);
     }
 }

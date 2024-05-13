@@ -2,6 +2,7 @@ package com.example.c_compiler;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -102,8 +103,6 @@ public class TreeLayoutExample  {
 
 
 
-
-
     public void displayParseTree() {
         TreeNode root = convertParseTreeToTreeNode(tree);
         root_node = root;
@@ -120,7 +119,7 @@ public class TreeLayoutExample  {
             }
         };
 
-        DefaultConfiguration<TreeNode> configuration = new DefaultConfiguration<>(10, 50);
+        DefaultConfiguration<TreeNode> configuration = new DefaultConfiguration<>(100, 50); // Increased gap
 
         TreeLayout<TreeNode> treeLayout = new TreeLayout<>(root, nodeExtentProvider, configuration);
 
@@ -137,13 +136,28 @@ public class TreeLayoutExample  {
             }
         }
 
+        // Add zoom in/out functionality
+        pane.setOnScroll(event -> {
+            event.consume();
+
+            double scaleFactor = (event.getDeltaY() > 0) ? 1.1 : 1/1.1;
+
+            pane.setScaleX(pane.getScaleX() * scaleFactor);
+            pane.setScaleY(pane.getScaleY() * scaleFactor);
+        });
+
+        // Create a ScrollPane
+        ScrollPane scrollPane = new ScrollPane();
+        // Add the pane to the ScrollPane
+        scrollPane.setContent(pane);
+
         // Create a new Stage for the new window
         Stage newWindow = new Stage();
         newWindow.setTitle("Parse Tree");
-        newWindow.setScene(new Scene(pane, 800, 600));
+        // Set the scene to include the scrollPane
+        newWindow.setScene(new Scene(scrollPane, 800, 600));
         newWindow.show();
     }
-
 
 
 }

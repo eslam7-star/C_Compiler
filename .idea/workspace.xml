@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e5ebce2-84e1-4714-b4b1-2002350ab931" name="Changes" comment="0x10">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/CustomErrorListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/errors.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/c_g.g4" beforeDir="false" afterPath="$PROJECT_DIR$/c_g.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTableController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TokenListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TokenListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Tokenn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Tokenn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/c_gLexer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/c_gParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TreeLayoutExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TreeLayoutExample.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/symbol_table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/symbol_table.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,8 +23,8 @@
       <list>
         <option value="JavaFXApplication" />
         <option value="Enum" />
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -142,7 +134,7 @@
       <workItem from="1715478393462" duration="223000" />
       <workItem from="1715478676414" duration="3726000" />
       <workItem from="1715593264090" duration="10335000" />
-      <workItem from="1715603857702" duration="857000" />
+      <workItem from="1715603857702" duration="13419000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>
