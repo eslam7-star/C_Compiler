@@ -5,41 +5,48 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.LinkedList;
+import java.util.Map;
+
+
 public class SymbolTableController {
 
     @FXML
-    private TableView<SymbolEntry> tableView;
+    private TableView<Tokenn> tableView;
 
     @FXML
-    private TableColumn<SymbolEntry, String> nameColumn;
+    private TableColumn<Tokenn, String> nameColumn;
 
     @FXML
-    private TableColumn<SymbolEntry, String> typeColumn;
+    private TableColumn<Tokenn, String> typeColumn;
 
-    public void initialize() {
+    @FXML
+    private TableColumn<Tokenn, Integer> scopeColumn;
+
+
+    public void initialize(SymbolTable symbolTable) {
         // Set up cell value factories
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Tokenn, String>("Id_value"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<Tokenn, String>("type"));
 
-        // Populate the table with symbol table data
-        SymbolTable symbolTable = new SymbolTable();
-        symbolTable.startScope();
-        symbolTable.addSymbol("x", new Tokenn("INT"));
-        symbolTable.addSymbol("y", new Tokenn("FLOAT"));
-        symbolTable.addSymbol("z", new Tokenn("CHAR"));
-        symbolTable.endScope();
 
         // Display the symbol table in the TableView
         displaySymbolTable(symbolTable);
     }
 
+
     private void displaySymbolTable(SymbolTable symbolTable) {
-        // Iterate through each scope and symbol entry in the symbol table
-        for (int i = 0; i < symbolTable.getAllScopes().size(); i++) {
-            for (Map.Entry<String, Tokenn> entry : symbolTable.getAllScopes().get(i).entrySet()) {
-                // Add symbol entry to the TableView
-                tableView.getItems().add(new SymbolEntry(entry.getKey(), entry.getValue().getId_type()));
+        int scopeLevel = 0;
+        // Iterate through each scope in the symbol table
+        for (LinkedList<Map<String, Tokenn>> scopeList : symbolTable.getAllScopes()) {
+            // Iterate through each symbol entry in the current scope
+            for (Map<String, Tokenn> scope : scopeList) {
+                for (Map.Entry<String, Tokenn> entry : scope.entrySet()) {
+                    // Add symbol entry to the TableView with scope level
+                    tableView.getItems().add(entry.getValue());
+                }
             }
+            scopeLevel++;
         }
     }
 }

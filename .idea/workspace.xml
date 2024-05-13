@@ -4,9 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="0x10">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7e5ebce2-84e1-4714-b4b1-2002350ab931" name="Changes" comment="0x10">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/c_g.g4" beforeDir="false" afterPath="$PROJECT_DIR$/c_g.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Lexer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTableController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/SymbolTableController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TokenListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/TokenListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Tokenn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/Tokenn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/c_gLexer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/c_compiler/c_gParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/symbol_table.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/c_compiler/symbol_table.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +31,7 @@
       <list>
         <option value="JavaFXApplication" />
         <option value="Enum" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -49,19 +63,24 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/ESLAM ASHRAF/Desktop/compilers/C_Compiler",
+    "last_opened_file_path": "C:/Users/ESLAM ASHRAF/Desktop/c_compiler/src/main/java/com/example/c_compiler",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ESLAM ASHRAF\Desktop\c_compiler\src\main\java\com\example\c_compiler" />
+      <recent name="E:\c_compiler\src\main\java\com\example\c_compiler" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\c_compiler\src\main\java\com\example\c_compiler" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="com.example.c_compiler.HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.c_compiler.HelloApplication" />
+      <module name="c_compiler" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.example.c_compiler.*" />
@@ -74,7 +93,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.com.example.c_compiler.HelloApplication" />
+        <item itemvalue="Application.HelloApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -89,7 +108,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0a466aae-0870-47e1-a133-bab294e222bf" name="Changes" comment="" />
+      <changelist id="7e5ebce2-84e1-4714-b4b1-2002350ab931" name="Changes" comment="0x10" />
       <created>1710169095540</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -122,6 +141,8 @@
       <workItem from="1715338774224" duration="42000" />
       <workItem from="1715478393462" duration="223000" />
       <workItem from="1715478676414" duration="3726000" />
+      <workItem from="1715593264090" duration="10335000" />
+      <workItem from="1715603857702" duration="857000" />
     </task>
     <task id="LOCAL-00001" summary="0x1">
       <created>1710207661610</created>

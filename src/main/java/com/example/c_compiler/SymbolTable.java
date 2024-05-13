@@ -3,9 +3,35 @@ package com.example.c_compiler;
 import java.util.*;
 
 class SymbolTable {
-    private Deque<Map<String, Token>> scopeStack;
+    private Deque<Map<String, Tokenn>> scopeStack;
     private int current_scope_level;
-    private List<LinkedList<Map<String, Token>>> allScopes;
+
+    private List<LinkedList<Map<String, Tokenn>>> allScopes;
+
+    public Deque<Map<String, Tokenn>> getScopeStack() {
+        return scopeStack;
+    }
+
+    public void setScopeStack(Deque<Map<String, Tokenn>> scopeStack) {
+        this.scopeStack = scopeStack;
+    }
+
+    public int getCurrent_scope_level() {
+        return current_scope_level;
+    }
+
+    public void setCurrent_scope_level(int current_scope_level) {
+        this.current_scope_level = current_scope_level;
+    }
+
+    public List<LinkedList<Map<String, Tokenn>>> getAllScopes() {
+        return allScopes;
+    }
+
+    public void setAllScopes(List<LinkedList<Map<String, Tokenn>>> allScopes) {
+        this.allScopes = allScopes;
+    }
+
 
     public SymbolTable() {
         allScopes = new ArrayList<>();
@@ -30,8 +56,8 @@ class SymbolTable {
         current_scope_level--;
     }
 
-    public boolean addSymbol(String name, Token token) {
-        Map<String, Token> currentScope = scopeStack.peek();
+    public boolean addSymbol(String name, Tokenn token) {
+        Map<String, Tokenn> currentScope = scopeStack.peek();
         if (currentScope.containsKey(name)) {
             return false;
         } else {
@@ -47,17 +73,17 @@ class SymbolTable {
         System.out.println("---------------------------- Symbol Table ----------------------------");
         System.out.println("-----------------------------------------------------------");
         for (int i = 0; i < allScopes.size(); i++) {
-            LinkedList<Map<String, Token>> scopes = allScopes.get(i);
-            for (Map<String, Token> scope : scopes) {
+            LinkedList<Map<String, Tokenn>> scopes = allScopes.get(i);
+            for (Map<String, Tokenn> scope : scopes) {
                 if( !scope.isEmpty() )
                     displayScope(i, scope);
             }
         }
     }
 
-    private void displayScope(int scopeIndex, Map<String, Token> scopeSymbols) {
+    private void displayScope(int scopeIndex, Map<String, Tokenn> scopeSymbols) {
         System.out.println("----------------------- Scope Level " + scopeIndex + " ------------------------");
-        for (Map.Entry<String, Token> entry : scopeSymbols.entrySet()) {
+        for (Map.Entry<String, Tokenn> entry : scopeSymbols.entrySet()) {
             System.out.println("Identifier: " + entry.getKey() + ", Token type: " + entry.getValue().getId_type());
         }
         System.out.println("-----------------------------------------------------------");

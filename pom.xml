@@ -42,7 +42,13 @@
         <groupId>org.abego.treelayout</groupId>
         <artifactId>org.abego.treelayout.core</artifactId>
         <version>1.0.3</version>
-    </dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.1</version> <!-- Use the appropriate version -->
+        </dependency>
+
     </dependencies>
 
     <build>

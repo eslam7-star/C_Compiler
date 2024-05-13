@@ -7,7 +7,7 @@ public class Lexer {
     private int currentPosition;
     private static final String[] KEYWORDS = {"auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile","while"};
 
-    List<Token> tokens;
+    List<Tokenn> tokens;
 
     protected SymbolTable symbolTable;
 
@@ -35,16 +35,16 @@ public class Lexer {
                 if(op.matches("[-+*/%&|<>^!~=]")) {
                     currentPosition++;      
                     if( op.equals("=") && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~]") ){
-                        tokens.add(new Token(TokenType.ASSIGN,"="));
+                        tokens.add(new Tokenn(TokenType.ASSIGN,"="));
                         continue;
                     }else if( currentPosition < input.length() && Character.toString(input.charAt(currentPosition)).matches("[-+*/%&|<>^!~=]") ) {
                         op += Character.toString(input.charAt(currentPosition));
                     }else {
                         currentPosition--;
                     }
-                    tokens.add(new Token( recognizeOperator(op) ,op));
+                    tokens.add(new Tokenn( recognizeOperator(op) ,op));
                 }else if ( !op.equals("\s") && !op.equals("\n") ){
-                    tokens.add(new Token(TokenType.SYMBOL,op));
+                    tokens.add(new Tokenn(TokenType.SYMBOL,op));
                     if ( op.equals("{") ){
                         symbolTable.startScope();
                     } else if ( op.equals("}") ) {
@@ -60,7 +60,7 @@ public class Lexer {
                         b.append(input.charAt(currentPosition));
                         currentPosition++;
                     }
-                    tokens.add(new Token(TokenType.STRING,b.toString()));
+                    tokens.add(new Tokenn(TokenType.STRING,b.toString()));
                 }else {
                     buffer.append(input.charAt(currentPosition));
                 }
@@ -76,27 +76,27 @@ public class Lexer {
     public void addToken(StringBuilder buffer) {
         String sbuffer = buffer.toString();
         if(is_keyword(sbuffer)) {
-            tokens.add(new Token(TokenType.KEYWORD, sbuffer));
+            tokens.add(new Tokenn(TokenType.KEYWORD, sbuffer));
         } else if(sbuffer.matches("[a-zA-Z_$][a-zA-Z0-9_$]*")) {
-            Token id = new Token(TokenType.IDENTIFIER, sbuffer);
+            Tokenn id = new Tokenn(TokenType.IDENTIFIER, sbuffer);
             tokens.add(id);
             if( tokens.size() - 1 > 0 ) {
-                Token pre_token = tokens.get(tokens.size() - 2);
+                Tokenn pre_token = tokens.get(tokens.size() - 2);
                 if ( pre_token.getType() == TokenType.KEYWORD){
                     id.setId_type(pre_token.getValue());
                 }
                 symbolTable.addSymbol(sbuffer,id);
             }
         } else if(sbuffer.matches("\\\".*?\\\"")) {
-            tokens.add(new Token(TokenType.STRING, sbuffer));
+            tokens.add(new Tokenn(TokenType.STRING, sbuffer));
         }else if( sbuffer.matches("'(\\\\.|[^'\\\\])*'")){
-            tokens.add(new Token(TokenType.Character,sbuffer));
+            tokens.add(new Tokenn(TokenType.Character,sbuffer));
         }else if( sbuffer.matches("(((([0-9]*\\.[0-9]+)|([0-9]*))([eE][-+]?[0-9]+)?)|([0-9.]*(e|E)))") || sbuffer.matches("[1-9][0-9]*|0") || sbuffer.matches("0[bB][01]+") || sbuffer.matches("0[xX][0-9a-fA-F]+") || sbuffer.matches("0[0-7]+")){
             while (tokens.size() > 1 &&
                     (tokens.get(tokens.size() - 1).getType() == TokenType.SUB ||
                             tokens.get(tokens.size() - 1).getType() == TokenType.ADD || (tokens.get(tokens.size() - 1).getType() == TokenType.UnknownOP && tokens.get(tokens.size() - 1).getValue().matches("[+-][-+]") ) )) {
-                Token t1 = tokens.get(tokens.size() - 1);
-                Token t2 = tokens.get(tokens.size() - 2);
+                Tokenn t1 = tokens.get(tokens.size() - 1);
+                Tokenn t2 = tokens.get(tokens.size() - 2);
 
 
                 if (!(t2.getType() == TokenType.IDENTIFIER || t2.getType() == TokenType.INC ||
@@ -119,16 +119,16 @@ public class Lexer {
                     tokens.get( tokens.size() - 1).setToken(sbuffer);
                 }
                 else {
-                    tokens.add(new Token(TokenType.DECIMAL, sbuffer));
+                    tokens.add(new Tokenn(TokenType.DECIMAL, sbuffer));
                 }
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[bB][01]+")){
-                tokens.add(new Token(TokenType.BINARY,sbuffer));
+                tokens.add(new Tokenn(TokenType.BINARY,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[xX][0-9a-fA-F]+")){
-                tokens.add(new Token(TokenType.HEX,sbuffer));
+                tokens.add(new Tokenn(TokenType.HEX,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)0[0-7]+")){
-                tokens.add(new Token(TokenType.OCTAL,sbuffer));
+                tokens.add(new Tokenn(TokenType.OCTAL,sbuffer));
             }else if( sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)(((([0-9]*\\.[0-9]+)|([0-9]*))([eE][-+]?[0-9]+)?)|([0-9.]*(e|E)))") && !sbuffer.matches("((\\+-)*\\+?|(-\\+)*-?)(0[0-9]*)")){
-                tokens.add(new Token(TokenType.FLOAT,sbuffer));
+                tokens.add(new Tokenn(TokenType.FLOAT,sbuffer));
             }else {
                 System.out.println("Syntax Error here :" + sbuffer);
             }
@@ -220,7 +220,7 @@ public class Lexer {
         return input.replaceAll(pattern,"");
     }
 
-    public List<Token> getTokens() {
+    public List<Tokenn> getTokens() {
         return tokens;
     }
 

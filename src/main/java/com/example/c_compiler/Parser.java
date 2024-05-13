@@ -3,7 +3,7 @@ package com.example.c_compiler;
 import java.util.List;
 
 public class Parser {
-    private List<Token> tokens;
+    private List<Tokenn> tokens;
     private int currentTokenIndex;
     private Node root;
     private Node currentNode;
@@ -15,10 +15,10 @@ public class Parser {
             "void","char","struct", "enum", "union", "typedef"
     };
 
-    public Parser(List<Token> tokens) {
+    public Parser(List<Tokenn> tokens) {
         this.tokens = tokens;
         this.currentTokenIndex = 0;
-        Token program = new Token(TokenType.PROGRAM,"PROGRAM");
+        Tokenn program = new Tokenn(TokenType.PROGRAM,"PROGRAM");
         this.root = new Node(program);  // Root node has no token
         this.currentNode = root;
     }
@@ -146,8 +146,6 @@ public class Parser {
         }
         return true;
     }
-
-
     private boolean parseShiftExpression() {
         Node shiftExpressionNode = new Node("shift_expression");
         currentNode.addChild(shiftExpressionNode); // Add shift expression node to the current node
@@ -630,7 +628,7 @@ public class Parser {
         }
     }
 
-    private Token peek() {
+    private Tokenn peek() {
         int nextIndex = currentTokenIndex + 1;
         if (nextIndex < tokens.size()) {
             return tokens.get(nextIndex);
@@ -1366,6 +1364,7 @@ public class Parser {
         }
         return false;
     }
+
     private boolean parsePostfixExpression() {
         Node postfixExpressionNode = new Node("postfix_expression");
 
@@ -1513,7 +1512,7 @@ public class Parser {
         return false;
     }
 
-    private boolean isConstant(Token token) {
+    private boolean isConstant(Tokenn token) {
         TokenType type = token.getType();
         return type == TokenType.DECIMAL ||
                 type == TokenType.OCTAL ||

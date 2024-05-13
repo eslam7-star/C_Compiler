@@ -6,11 +6,11 @@ import java.util.List;
 public class Node {
     private Node parent;
     private List<Node> children;
-    private Token token;
+    private Tokenn token;
 
     private String str;
 
-    public Node(Token token) {
+    public Node(Tokenn token) {
         this.token = token;
         this.children = new ArrayList<>();
     }

@@ -252,7 +252,9 @@ postfixExpression
 
 primaryExpression
     : identifier
-    | constant
+    | INT_CONSTANT
+    | FLOAT_CONSTANT
+    | CHAR_CONSTANT
     | string
     | LPAREN expression RPAREN
     ;
@@ -261,16 +263,11 @@ argumentExpressionList
     : assignmentExpression (COMMA assignmentExpression)*
     ;
 
-constant
-    : INT_CONSTANT
-    | FLOAT_CONSTANT
-    | CHAR_CONSTANT
-    | STRING_LITERAL
-    ;
-
 string
     : STRING_LITERAL+
     ;
+
+
 
 typeName
     : specifierQualifierList abstractDeclarator?
